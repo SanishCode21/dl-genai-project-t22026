@@ -1,0 +1,136 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.pyo
+
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+
+# Environment Variables & Secrets
+.env
+.env.*
+*.env
+
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+
+# Data Files (Datasets)
+data/
+datasets/
+*.csv
+*.xlsx
+*.json
+*.parquet
+*.zip
+*.tar.gz
+*.pkl
+
+# If you want to keep sample datasets:
+!data/sample_data.csv
+
+# Machine Learning / Deep Learning Models
+*.h5
+*.hdf5
+*.keras
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.joblib
+*.pickle
+*.pkl
+
+
+# TensorBoard
+runs/
+logs/
+tensorboard_logs/
+
+
+# Reports and Generated Files
+reports/*.pdf
+reports/*.html
+reports/*.docx
+reports/*.pptx
+
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# Flask
+instance/
+.webassets-cache/
+
+
+# FastAPI
+*.db
+*.sqlite3
+
+
+# Build & Distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+
+# Caches
+.cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+
+# OS Generated Files
+Desktop.ini
+.DS_Store
+
+
+# Docker
+docker-compose.override.yml
+*.pid
+
+# Deployment
+.vercel/
+.netlify/
+.heroku/
