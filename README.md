@@ -44,6 +44,5 @@ MCQ-Solver/
 │
 ├── README.md
 ├── requirements.txt
-├── .env
 └── .gitignore
 ```
