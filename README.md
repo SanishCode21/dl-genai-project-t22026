@@ -23,6 +23,13 @@ MCQ-Solver/
 │   ├── 04_deberta_finetuning.ipynb
 │   ├── 05_ensemble.ipynb
 │
+├── milestones/
+│   ├── milestone-1.ipynb
+│   ├── milestone-2.ipynb
+│   ├── milestone-3.ipynb
+│   ├── milestone-4.ipynb
+│   ├── milestone-5.ipynb
+│
 ├── src/
 │   ├── preprocessing.py
 │   ├── metrics.py
