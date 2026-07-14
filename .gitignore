@@ -1,4 +1,3 @@
-
 # Python
 __pycache__/
 *.py[cod]
@@ -15,6 +14,11 @@ ENV/
 .venv/
 .python-version
 
+*.pyc
+
+.ipynb_checkpoints/
+
+wandb/
 
 # Environment Variables & Secrets
 .env
@@ -30,13 +34,13 @@ ENV/
 # Data Files (Datasets)
 data/
 datasets/
-*.csv
+#*.csv
 *.xlsx
-*.json
-*.parquet
+#*.json
+#*.parquet
 *.zip
 *.tar.gz
-*.pkl
+#*.pkl
 
 # If you want to keep sample datasets:
 !data/sample_data.csv
@@ -49,7 +53,7 @@ datasets/
 *.pth
 *.ckpt
 *.onnx
-*.joblib
+#*.joblib
 *.pickle
 *.pkl
 
@@ -59,12 +63,6 @@ runs/
 logs/
 tensorboard_logs/
 
-
-# Reports and Generated Files
-reports/*.pdf
-reports/*.html
-reports/*.docx
-reports/*.pptx
 
 
 # Streamlit
@@ -91,12 +89,6 @@ pip-wheel-metadata/
 
 # Testing & Coverage
 .pytest_cache/
-.coverage
-.coverage.*
-htmlcov/
-.tox/
-.nox/
-
 
 # Caches
 .cache/
@@ -112,13 +104,6 @@ logs/
 *.out
 *.err
 
-# IDEs and Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*.DS_Store
-Thumbs.db
 
 
 # OS Generated Files
@@ -129,8 +114,3 @@ Desktop.ini
 # Docker
 docker-compose.override.yml
 *.pid
-
-# Deployment
-.vercel/
-.netlify/
-.heroku/

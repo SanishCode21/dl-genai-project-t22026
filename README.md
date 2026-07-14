@@ -14,7 +14,7 @@ The challenge focuses on evaluating a model’s ability to understand context, r
 
 ## Project Folder Structure
 ```Bash
-MCQ-Solver/
+Smart-MCQ-Solver/
 │
 ├── notebooks/
 │   ├── 01_eda.ipynb
@@ -22,6 +22,7 @@ MCQ-Solver/
 │   ├── 03_bilstm_attention.ipynb
 │   ├── 04_deberta_finetuning.ipynb
 │   ├── 05_ensemble.ipynb
+│   ...
 │
 ├── milestones/
 │   ├── milestone-1.ipynb
@@ -35,21 +36,39 @@ MCQ-Solver/
 │   ├── metrics.py
 │   ├── inference.py
 │   ├── utils.py
+│   ├── app.py
 │
-├── models/
-│   ├── train_model.joblib
-│   ├── metrics.joblib
-│   ├── evaluation.joblib
-│ 
+├── models/     --->  (Exclude this from GitHub - It contains large files)
+│   ├── Roberta-finetuned/    
+│   │   ├── config.json
+│   │   ├── model.safetensors
+│   │   ├── tokenizer.json
+│   │   ...
+│   │
+│   ├── sentence-transformer/
+│   │   ├── model.safetensors
+│   │   ├── tokenizer.json
+│   │   ├── tokenizer_config.json
+│   │   ...
+│   │
+│   ├── rag-faiss/
+│   │   ├── mcq_rag_index.faiss
+│   │   ├── knowledge_corpus.csv
+│   │   ├── metadata.joblib
+│       ...
+│
 ├── reports/
-│   ├── milestone1.md
-│   ├── milestone2.md
+│   ├── Smart-mcq-solver.pdf
 │
 ├── assets/
 │   ├── wandb_run1.png
 │   ├── wandb_run2.png
+│   ├── eda.png
+│   ...
 │
 ├── README.md
 ├── requirements.txt
+├── Dockerfile
+├── .dockerignore
 └── .gitignore
 ```
