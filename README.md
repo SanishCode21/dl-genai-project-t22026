@@ -36,7 +36,10 @@ Smart-MCQ-Solver/
 │   ├── metrics.py
 │   ├── inference.py
 │   ├── utils.py
-│   ├── app.py
+│   ├── prediction.py
+│   ├── rag.py
+│   ├── home.py
+│   │   ...
 │
 ├── models/     --->  (Exclude this from GitHub - It contains large files)
 │   ├── Roberta-finetuned/    
@@ -66,9 +69,12 @@ Smart-MCQ-Solver/
 │   ├── eda.png
 │   ...
 │
+│
+├── app.py
 ├── README.md
 ├── requirements.txt
 ├── Dockerfile
 ├── .dockerignore
+├── .gitattributes
 └── .gitignore
 ```

@@ -1,5 +1,7 @@
 """
-utils.py
+src/utils.py
+
+Utility paths and model downloading.
 """
 
 import os
@@ -7,7 +9,12 @@ import os
 from huggingface_hub import snapshot_download
 
 
-HF_MODEL_REPO = "SanishKumarSingh/smart-mcq-solver-models"
+# Root Directory
+ROOT_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
 
 CACHE_DIR = os.path.join(
     os.path.expanduser("~"),
@@ -16,43 +23,55 @@ CACHE_DIR = os.path.join(
 )
 
 
-def download_models():
-
-    model_path = snapshot_download(
-        repo_id=HF_MODEL_REPO,
-        repo_type="model",
-        local_dir=CACHE_DIR,
-        allow_patterns=[
-            "roberta-finetuned/*",
-            "sentence-transformer/*",
-            "rag-faiss/*"
-        ]
-    )
-
-    return model_path
+# Hugging Face Repository
+HF_REPO = "SanishKumarSingh/smart-mcq-solver-models"
 
 
-MODEL_DIR = download_models()
+# Download Models
+snapshot_download(
 
+    repo_id=HF_REPO,
 
-ROBERTA_DIR = os.path.join(
-    MODEL_DIR,
-    "roberta-finetuned"
+    repo_type="model",
+
+    local_dir=CACHE_DIR,
+
+    allow_patterns=[
+        "roberta-finetuned/*",
+        "sentence-transformer/*",
+        "rag-faiss/*"
+    ]
+
 )
+
+MODEL_DIR = CACHE_DIR
+
+
+# RoBERTa
+ROBERTA_DIR = os.path.join(
+
+    MODEL_DIR,
+
+    "roberta-finetuned"
+
+)
+
 
 LABEL_MAPPING = os.path.join(
     ROBERTA_DIR,
     "label_mapping.joblib"
 )
 
+
+# RAG
 RAG_DIR = os.path.join(
     MODEL_DIR,
     "rag-faiss"
 )
 
+
+# Sentence Transformer
 SENTENCE_TRANSFORMER_DIR = os.path.join(
     MODEL_DIR,
     "sentence-transformer"
 )
-
-
