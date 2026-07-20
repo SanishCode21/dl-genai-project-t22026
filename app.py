@@ -24,7 +24,7 @@ st.set_page_config(
 
 
 # Load Custom CSS
-from src.styles import load_css,PAGE_STYLE, main_title, sub_title
+from src.styles import load_css, PAGE_STYLE, main_title, sub_title
 load_css()
 
 st.markdown(PAGE_STYLE, unsafe_allow_html=True)
@@ -102,29 +102,15 @@ elif selected == "About":
     about_page()
 
 
-## Header
-#col1, col2 = st.columns([6, 1])
-
-#with col1:
-#    st.title("🧠 Smart MCQ Solver")
-#    st.caption(
-#        "Fine-tuned FacebookAI/RoBERTa + Retrieval-Augmented Generation (FAISS)"
-#    )
-
-#with col2:
-#    st.empty()
-
-#st.divider()
-
 
 # Footer
 st.divider()
 
 st.markdown(
     """
-    <div style="text-align:center;color:gray;font-size:18px;">
+    <div style="text-align:center;color:gray;font-size:15px;">
     © 2026 Smart MCQ Solver • Built with using
-    FacebookAI RoBERTa • SentenceTransformers • FAISS • Streamlit
+    TF-IDF + Logistic Regression • MiniLM • FAISS • Streamlit
     </div>
     """,
     unsafe_allow_html=True

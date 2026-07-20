@@ -99,66 +99,200 @@ def load_css():
         }
 
 
-        /* Prediction Cards */
+        /* Prediction Card */
         .prediction-card{
 
-            padding:20px;
+            padding:22px;
 
-            border-radius:16px;
+            border-radius:18px;
 
-            background:#1E293B;              /* Dark slate */
+            background:linear-gradient(145deg,#1E293B,#0F172A);
 
             border:1px solid #334155;
 
-            margin-bottom:18px;
+            margin-bottom:22px;
 
-            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+            box-shadow:0 8px 24px rgba(0,0,0,.25);
+
+            transition:all .35s ease;
+
+            overflow:hidden;
+
+            position:relative;
+
+        }
+
+        /* Top Glow */
+
+        .prediction-card::before{
+
+            content:"";
+
+            position:absolute;
+
+            left:0;
+            top:0;
+
+            width:100%;
+            height:4px;
+
+            background:linear-gradient(
+                90deg,
+                #3B82F6,
+                #06B6D4,
+                #22C55E
+            );
+
+        }
+
+        /* Hover Effect */
+
+        .prediction-card:hover{
+
+            transform:translateY(-6px);
+
+            box-shadow:0 18px 36px rgba(37,99,235,.30);
+
+            border-color:#3B82F6;
 
         }
 
 
-        /* Card Title */
+        /* Prediction Title */
         .prediction-title{
 
-            font-size:22px;
+            font-size:24px;
 
             font-weight:700;
 
-            color:#F8FAFC;                   /* Nearly white */
+            color:#F8FAFC;
 
             margin-bottom:8px;
 
         }
 
+        .prediction-answer{
+            font-size:52px;
+            font-weight:800;
+            color:#3B82F6;
+            text-align:center;
+            margin:12px 0;
+        }
 
-        /* Confidence Score */
+        /* Confidence Score Badge */
         .prediction-score{
 
-            font-size:18px;
+            display:inline-block;
 
-            font-weight:600;
+            padding:8px 18px;
 
-            color:#22C55E;                   /* Green */
+            border-radius:999px;
 
-            margin-bottom:12px;
+            background:rgba(34,197,94,.12);
+
+            border:1px solid rgba(34,197,94,.35);
+
+            color:#22C55E;
+
+            font-size:16px;
+
+            font-weight:700;
+
+            margin-bottom:18px;
 
         }
 
 
         /* Option Box */
+
         .option-box{
 
-            background:#334155;              /* Slightly lighter than card */
+            background:#334155;
 
-            color:#E2E8F0;                   /* Light gray text */
+            color:#E2E8F0;
 
-            padding:12px;
+            padding:14px 16px;
 
             border-radius:12px;
 
-            border-left:4px solid #3B82F6;   /* Blue accent */
+            border-left:5px solid #3B82F6;
 
-            margin-top:10px;
+            margin-top:12px;
+
+            transition:all .30s ease;
+
+        }
+
+
+        /* Hover */
+
+        .option-box:hover{
+
+            background:#3F4F63;
+
+            transform:translateX(6px);
+
+            border-left-color:#22C55E;
+
+        }
+
+
+        /* Option Label */
+        .option-label{
+
+            color:#60A5FA;
+
+            font-weight:700;
+
+        }
+
+
+        /* Rank Badge */
+
+        .rank-badge{
+
+            display:inline-block;
+
+            padding:6px 14px;
+
+            border-radius:999px;
+
+            background:#2563EB;
+
+            color:white;
+
+            font-size:14px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+
+        }
+
+
+        @keyframes fadeIn{
+
+            from{
+
+                opacity:0;
+
+                transform:translateY(20px);
+
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:translateY(0);
+
+            }
+
+        }
+
+        .prediction-card{
+
+            animation:fadeIn .45s ease;
 
         }
 

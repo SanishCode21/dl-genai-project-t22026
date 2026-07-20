@@ -2,23 +2,16 @@
 preprocessing.py
 """
 
-def build_roberta_text(question, option_a, option_b, option_c, option_d, option_e, tokenizer):
-    """
-    Build exactly the same input used during
-    RoBERTa fine-tuning.
-    """
-
-    sep = tokenizer.sep_token
-
+#def build_roberta_text(question, option_a, option_b, option_c, option_d, option_e, tokenizer):
+def build_prediction_text(question, a, b, c, d, e):
     return (
-        f"{question} {sep} "
-        f"{option_a} {sep} "
-        f"{option_b} {sep} "
-        f"{option_c} {sep} "
-        f"{option_d} {sep} "
-        f"{option_e}"
+        f"{question}\n\n"
+        f"A. {a}\n"
+        f"B. {b}\n"
+        f"C. {c}\n"
+        f"D. {d}\n"
+        f"E. {e}"
     )
-
 
 def build_rag_text(question, option_a, option_b, option_c, option_d, option_e):
     """

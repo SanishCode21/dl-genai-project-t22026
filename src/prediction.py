@@ -8,23 +8,25 @@ import os
 import streamlit as st
 import pandas as pd
 
-from .preprocessing import build_roberta_text, build_rag_text
-from .inference import RobertaPredictor
+from .preprocessing import build_prediction_text, build_rag_text
+from .inference import MCQPredictor
 from .rag import RAGRetriever
 from .utils import (
-    ROBERTA_DIR,
-    LABEL_MAPPING,
-    RAG_DIR,
     SENTENCE_TRANSFORMER_DIR,
+    TFIDF_PATH,
+    LOGISTIC_PATH,
+    FAISS_PATH,
+    CORPUS_PATH
 )
+
 from .styles import load_css, main_title, sub_title
 
 # Cache Models
 @st.cache_resource(show_spinner=False)
 def load_predictor():
-    return RobertaPredictor(
-        model_path=ROBERTA_DIR,
-        label_path=LABEL_MAPPING
+    return MCQPredictor(
+        TFIDF_PATH,
+        LOGISTIC_PATH
     )
 
 
@@ -33,16 +35,8 @@ def load_retriever():
 
     return RAGRetriever(
         embedding_model_path=SENTENCE_TRANSFORMER_DIR,
-
-        faiss_path=os.path.join(
-            RAG_DIR,
-            "mcq_rag_index.faiss"
-        ),
-
-        corpus_path=os.path.join(
-            RAG_DIR,
-            "knowledge_corpus.csv"
-        )
+        faiss_path=FAISS_PATH,
+        corpus_path=CORPUS_PATH,
     )
 
 # Load Models
@@ -98,13 +92,13 @@ def show():
 
     # Header
     main_title("🧠 Prediction")
-    st.caption("Fine-tuned FacebookAI/Roberta-v3-base")
+    st.caption("TF-IDF + Logistic Regression")
     st.divider()
 
 
     # Model Information
     m1, m2, m3 = st.columns(3)
-    m1.metric("Prediction Model", "RoBERTa")
+    m1.metric("Prediction Model", "TF-IDF + Logistic Regression")
     m2.metric("Retriever", "FAISS")
     m3.metric("Top-K", "3")
 
@@ -153,7 +147,7 @@ def show():
 
         submit = st.form_submit_button(
             "Predict",
-            use_container_width=True
+            width="stretch"
         )
 
     # Input Validation
@@ -180,14 +174,13 @@ def show():
             option_e
         )
 
-        roberta_text = build_roberta_text(
+        prediction_text = build_prediction_text(
             question,
             option_a,
             option_b,
             option_c,
             option_d,
             option_e,
-            predictor.tokenizer
         )
 
         rag_text = build_rag_text(
@@ -202,9 +195,9 @@ def show():
         # Prediction logic will be added in Part 2
         try:
             # RoBERTa Prediction
-            with st.spinner("Running RoBERTa prediction..."):
+            with st.spinner("Running TF-IDF + Logistic Regression prediction..."):
                 labels, scores = predictor.predict(
-                    roberta_text,
+                    prediction_text,
                     top_k=3
                 )
 
@@ -236,12 +229,6 @@ def show():
                 "🥉"
             ]
 
-            colors = [
-                "success",
-                "info",
-                "warning"
-            ]
-
             for i in range(3):
                 with prediction_columns[i]:
                     label = labels[i]
@@ -254,7 +241,9 @@ def show():
                             <div class="prediction-title">
                             {medals[i]} Prediction {i+1}
                             </div>
-                            <h2>{label}</h2>
+                            <div class="prediction-answer">
+                                {label}
+                            </div>
                             <div class="prediction-score">
                             Confidence : {confidence:.2f}%
                             </div>
@@ -280,7 +269,7 @@ def show():
             # Confidence Bar Chart
             st.divider()
 
-            ("Confidence Scores")
+            sub_title("Confidence Scores")
 
             confidence_df = pd.DataFrame({
                 "Answer": labels,
@@ -291,7 +280,7 @@ def show():
                 confidence_df,
                 x="Answer",
                 y="Confidence",
-                use_container_width=True,
+                width="stretch",
             )
 
             # Save retrieved dataframe
@@ -358,7 +347,7 @@ def show():
                 "Answer Text": option_lookup[label]
             })
 
-        st.dataframe(summary,use_container_width=True,hide_index=True)
+        st.dataframe(summary,width="stretch",hide_index=True)
         summary_df = pd.DataFrame(summary)
 
         st.download_button(
@@ -388,7 +377,7 @@ def show():
 
     with left:
         st.caption(
-            "🧠 Smart MCQ Solver | FacebookAI RoBERTa | Sentence Transformers | FAISS | Streamlit | Hugging Face"
+            "🧠 Smart MCQ Solver | TF-IDF + Logistic Regression | Sentence Transformers | FAISS | Streamlit | Hugging Face"
         )
         st.caption("Version 1.0")
 
@@ -398,7 +387,7 @@ def show():
 
         with c1:
             st.caption("Prediction Engine")
-            st.write("FacebookAI/RoBERTa-v3-base")
+            st.write("TF-IDF + Logistic Regression")
 
         with c2:
             st.caption("Retriever")

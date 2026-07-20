@@ -5,7 +5,8 @@ Model Information Page
 """
 
 import streamlit as st
-from src.styles import load_css, main_title, sub_title
+from src.styles import main_title, sub_title
+
 
 def show():
 
@@ -13,139 +14,158 @@ def show():
 
     st.markdown(
         """
-        Learn about the deep learning models, retrieval pipeline,
+        Learn about the machine learning models, retrieval pipeline,
         and technologies powering Smart MCQ Solver.
         """
     )
 
     st.markdown("---")
 
+    # Prediction Model
     sub_title("Prediction Model")
 
-    c1, c2 = st.columns([1,2])
+    c1, c2 = st.columns([1, 2])
 
     with c1:
-        st.metric("Model", "RoBERTa-v3")
-        st.metric("Framework", "PyTorch")
+
+        st.metric("Model", "TF-IDF + Logistic Regression")
+        st.metric("Framework", "Scikit-Learn")
         st.metric("Task", "MCQ Classification")
 
     with c2:
 
         st.info(
-        """
-        **FacebookAI/RoBERTa-v3-base**
+            """
+            **TF-IDF + Logistic Regression**
 
-        ✔ Fine-tuned on MCQ dataset
+            ✔ TF-IDF text vectorization
 
-        ✔ Context-aware Transformer Encoder
+            ✔ Logistic Regression classifier
 
-        ✔ Predicts Top-3 Answers
-        
-        ✔ Softmax Confidence Scores
-        
-        ✔ HuggingFace Transformers
+            ✔ Predicts Top-3 Answers
 
-        """
+            ✔ Probability-based Confidence Scores
+
+            ✔ Fast CPU Inference
+            """
         )
 
     st.markdown("---")
+
+    # Retrieval Pipeline
     sub_title("Retrieval-Augmented Generation")
-    c1, c2 = st.columns([1,2])
+
+    c1, c2 = st.columns([1, 2])
 
     with c1:
-        st.metric("Embedding", "BGE-base")
+
+        st.metric("Embedding", "all-MiniLM-L6-v2")
         st.metric("Retriever", "FAISS")
         st.metric("Top K", "3")
 
     with c2:
+
         st.success(
+            """
+            **Sentence Transformer**
+
+            • all-MiniLM-L6-v2
+
+            • Dense Semantic Embeddings
+
+            • FAISS Similarity Search
+
+            • Retrieves Similar MCQs
+            """
+        )
+
+    st.markdown("---")
+
+    # Pipeline
+    sub_title("Inference Pipeline")
+
+    st.code(
         """
+                                            User Question
+                                                │
+                                                ▼
+                                            Text Preprocessing
+                                                │
+                                                ▼
+                                        TF-IDF Vectorization
+                                                │
+                                                ▼
+                                    Logistic Regression
+                                                │
+                                                ▼
+                                        Top-3 Predictions
+                                                │
+                                                ▼
+                                    SentenceTransformer (MiniLM)
+                                                │
+                                                ▼
+                                        FAISS Retrieval
+                                                │
+                                                ▼
+                                        Similar Questions
+        """,
+        language="text",
+    )
 
-        **Sentence Transformer**
+    st.markdown("---")
 
-        • BAAI/bge-base-en-v1.5
-        
-        • Dense Vector Embeddings
-        
-        • FAISS Similarity Search
-        
-        • Context Retrieval
 
+    # Components
+    sub_title("Project Components")
+
+    left, right = st.columns(2)
+
+    with left:
+
+        st.markdown(
+            """
+            ### Models
+
+            - TF-IDF Vectorizer
+
+            - Logistic Regression
+
+            - SentenceTransformer (MiniLM)
+
+            - FAISS Index
+            """
+        )
+
+    with right:
+
+        st.markdown(
+        """
+            ### Libraries
+
+            - Scikit-Learn
+
+            - Sentence Transformers
+
+            - FAISS
+
+            - Hugging Face Hub
+
+            - Streamlit
         """
         )
 
     st.markdown("---")
-    sub_title("Inference Pipeline")
-    st.code(
-        """
-                                                User Question
-                                                    │
-                                                    ▼
-                                                Preprocessing
-                                                    │
-                                                    ▼
-                                                RoBERTa-v3 Prediction
-                                                    │
-                                                    ▼
-                                                Top-3 Answers
-                                                    │
-                                                    ▼
-                                                Sentence Transformer
-                                                    │
-                                                    ▼
-                                                FAISS Retrieval
-                                                    │
-                                                    ▼
-                                                Similar Questions
-        """,
 
-language="text"
-    )
-    st.markdown("---")
-    sub_title("Project Components")
-    left,right=st.columns(2)
-    with left:
-        st.markdown("""
-                    
-            ### Models
-
-            - FacebookAI/RoBERTa-v3-base
-            
-            - BAAI/bge-base-en-v1.5
-                    
-            - FAISS Index
-                    
-            """
-            )
-
-    with right:
-
-        st.markdown("""
-            ### Libraries
-
-            - Transformers
-                    
-            - Sentence Transformers
-            
-            - PyTorch
-            
-            - FAISS
-                    
-            - Streamlit
-                    
-            """
-                    )
-
-    st.markdown("---")
-
+    # Deployment
     sub_title("Deployment Stack")
 
-    c1,c2,c3,c4=st.columns(4)
-    c1.metric("Frontend","Streamlit")
-    c2.metric("Container","Docker")
-    c3.metric("Hosting","HF Spaces")
-    c4.metric("Repository","GitHub")
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric("Frontend", "Streamlit")
+    c2.metric("ML", "Scikit-Learn")
+    c3.metric("Retriever", "FAISS")
+    c4.metric("Models", "HF Hub")
 
     st.markdown("---")
-    st.caption("Model Version : v1.0")
 
+    st.caption("Model Version: v2.0")

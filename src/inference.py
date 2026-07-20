@@ -1,80 +1,48 @@
 """
 src/inference.py
 
-RoBERTa Prediction Engine
+TF-IDF + Logistic Regression Prediction Engine
 """
 
 import joblib
 import numpy as np
-import torch
-
-from scipy.special import softmax
-
-from transformers import (
-    AutoTokenizer,
-    AutoModelForSequenceClassification
-)
 
 
-class RobertaPredictor:
+class MCQPredictor:
 
     def __init__(
         self,
-        model_path,
-        label_path
+        vectorizer_path,
+        model_path
     ):
 
-        self.device = torch.device(
-            "cuda"
-            if torch.cuda.is_available()
-            else "cpu"
+        self.vectorizer = joblib.load(
+            vectorizer_path
         )
 
-        # Tokenizer
-        self.tokenizer = AutoTokenizer.from_pretrained(
+        self.model = joblib.load(
             model_path
         )
 
-        # Model
-        self.model = AutoModelForSequenceClassification.from_pretrained(
-            model_path
+        self.labels = np.array(
+            ["A", "B", "C", "D", "E"]
         )
 
-        self.model.to(
-            self.device
-        )
 
-        self.model.eval()
-
-
-        # Label Mapping
-        mapping = joblib.load(
-            label_path
-        )
-
-        self.id2label = mapping["ID2LABEL"]
-        self.label2id = mapping["LABEL2ID"]
-
-
-    def preprocess(
+    def predict_proba(
         self,
         text
     ):
 
-        encoded = self.tokenizer(
-            text,
-            truncation=True,
-            padding=True,
-            max_length=512,
-            return_tensors="pt"
+        X = self.vectorizer.transform(
+            [text]
         )
 
-        encoded = {
-            k: v.to(self.device)
-            for k, v in encoded.items()
-        }
+        probabilities = self.model.predict_proba(
+            X
+        )[0]
 
-        return encoded
+        return probabilities
 
 
     def predict(
@@ -82,58 +50,26 @@ class RobertaPredictor:
         text,
         top_k=3
     ):
-        inputs = self.preprocess(
+
+        probabilities = self.predict_proba(
             text
         )
-
-        with torch.no_grad():
-            outputs = self.model(
-                **inputs
-            )
-
-        probabilities = softmax(
-            outputs.logits.cpu().numpy(),
-            axis=1
-        )[0]
 
         ranking = np.argsort(
             -probabilities
         )[:top_k]
 
-        labels = [
-            self.id2label[idx]
-            for idx in ranking
-        ]
+        labels = self.labels[
+            ranking
+        ].tolist()
 
-        scores = [
-            float(probabilities[idx])
-            for idx in ranking
-        ]
+        scores = probabilities[
+            ranking
+        ].tolist()
 
         return labels, scores
 
 
-    def predict_proba(
-        self,
-        text
-    ):
-        inputs = self.preprocess(
-            text
-        )
-
-        with torch.no_grad():
-            outputs = self.model(
-                **inputs
-            )
-
-        probabilities = softmax(
-            outputs.logits.cpu().numpy(),
-            axis=1
-        )[0]
-
-        return probabilities
-
-    
     def predict_one(
         self,
         text

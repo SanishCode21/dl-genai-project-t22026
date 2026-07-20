@@ -1,109 +1,129 @@
 """
 src/home.py
+
 Home Page
 """
 
 import streamlit as st
 
-from src.styles import load_css, main_title, sub_title
+from src.styles import main_title, sub_title
+
 
 def show():
     main_title("Welcome to Smart MCQ Solver")
-
     st.markdown(
         """
         ### AI-Powered Multiple Choice Question Solver
 
-        Smart MCQ Solver combines a fine-tuned **FacebookAI/RoBERTa-v3-base**
-        transformer with **Retrieval-Augmented Generation (RAG)** to predict
-        the most likely answers while retrieving similar questions for
-        additional context.
+        Smart MCQ Solver combines a lightweight
+        **TF-IDF + Logistic Regression** prediction model with
+        **Retrieval-Augmented Generation (RAG)** to predict the
+        most likely answers while retrieving semantically similar
+        questions from the knowledge base for additional context.
         """
     )
 
     st.markdown("---")
+
+    # Key Features
     sub_title("Key Features")
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
+
         st.info(
             """
-            ### Transformer Prediction
-            
-            • Fine-tuned FacebookAI/RoBERTa-v3-base
-            
-            • Predicts Top-3 Answers
-            
-            • Confidence Scores
+            ### Prediction Engine
 
+            • TF-IDF Vectorization
+
+            • Logistic Regression
+
+            • Top-3 Answer Prediction
+
+            • Confidence Scores
             """
         )
 
     with col2:
+
         st.success(
             """
             ### Retrieval-Augmented Generation
 
-            • Sentence Transformers
-            
-            • FAISS Vector Search
-            
-            • Similar Question Retrieval
+            • MiniLM Sentence Transformer
 
+            • FAISS Vector Search
+
+            • Similar Question Retrieval
             """
         )
 
     with col3:
+
         st.warning(
             """
             ### Deployment
-            
+
             • Streamlit
-            
-            • Docker
-            
-            • Hugging Face Spaces
+
+            • Hugging Face Hub
+
+            • Lightweight Models
             """
         )
 
     st.markdown("---")
+
+    # Architecture
     sub_title("System Architecture")
+
     st.code(
         """
-                                                        User Question
-                                                            │
-                                                            ▼
-                                                Fine-tuned FacebookAI/RoBERTa
-                                                            │
-                                                            ▼
-                                                    Top-3 Predictions
-                                                            │
-                                                            ▼
-                                                Sentence Transformer Embedding
-                                                            │
-                                                            ▼
-                                                    FAISS Retrieval
-                                                            │
-                                                            ▼
-                                                Similar Questions + Answers
+                                                    User Question
+                                                        │
+                                                        ▼
+                                                Text Preprocessing
+                                                        │
+                                                        ▼
+                                                TF-IDF Vectorization
+                                                        │
+                                                        ▼
+                                            Logistic Regression
+                                                        │
+                                                        ▼
+                                                Top-3 Predictions
+                                                        │
+                                                        ▼
+                                            SentenceTransformer (MiniLM)
+                                                        │
+                                                        ▼
+                                                FAISS Retrieval
+                                                        │
+                                                        ▼
+                                        Similar Questions + Context
         """,
-        language="text"
+        language="text",
     )
 
     st.markdown("---")
+
+    # Project Statistics
     sub_title("Project Statistics")
+
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
         st.metric(
             "Prediction Model",
-            "RoBERTa-v3"
+            "TF-IDF + LR"
         )
 
     with c2:
         st.metric(
             "Embedding",
-            "BGE-base"
+            "MiniLM"
         )
 
     with c3:
@@ -119,77 +139,90 @@ def show():
         )
 
     st.markdown("---")
+
+    # Technology Stack
     sub_title("Technology Stack")
+
     left, right = st.columns(2)
 
     with left:
+
         st.markdown(
             """
             #### AI & Machine Learning
 
-            - FacebookAI/RoBERTa-v3-base
-            
+            - TF-IDF Vectorizer
+
+            - Logistic Regression
+
             - Sentence Transformers
-            
+
             - FAISS
-            
-            - PyTorch
-            
-            - Transformers
-            
+
+            - Scikit-Learn
             """
         )
 
     with right:
+
         st.markdown(
             """
-
             #### Deployment
 
             - Streamlit
-            
-            - Docker
-            
-            - Hugging Face Spaces
-            
-            - GitHub
 
+            - Hugging Face Hub
+
+            - GitHub
             """
         )
 
     st.markdown("---")
+
+    # How It Works
     sub_title("How It Works")
+
     st.markdown(
         """
         **Step 1**
-        Enter your multiple-choice question.
+
+        Enter your multiple-choice question and answer options.
 
         **Step 2**
-        The RoBERTa model predicts the Top-3 most probable answers.
+
+        The question is converted into TF-IDF features.
 
         **Step 3**
-        The question is converted into embeddings using a Sentence Transformer.
+
+        A Logistic Regression model predicts the Top-3 most probable answers with confidence scores.
 
         **Step 4**
-        FAISS retrieves the most similar questions from the knowledge base.
+
+        The same question is converted into semantic embeddings using the MiniLM Sentence Transformer.
 
         **Step 5**
-        The retrieved questions and their answers are displayed as supporting evidence.
+
+        FAISS retrieves the most similar questions from the knowledge base.
+
+        **Step 6**
+
+        The retrieved questions and their correct answers are displayed as supporting context.
         """
     )
 
     st.markdown("---")
+
     st.success(
         "👉 Select **Prediction** from the navigation bar above to start solving MCQs."
     )
-    st.markdown("---")
-    st.markdown(
-            """
-            <div style="text-align:center;color:gray;font-size:15px;">
-            "Smart MCQ Solver • Deep Learning & Generative AI Project • IIT Madras BS Degree"
-            </div>
-            """,
-            unsafe_allow_html=True
-    )
-      
 
+    st.markdown("---")
+
+    st.markdown(
+        """
+        <div style="text-align:center;color:gray;font-size:15px;">
+        Smart MCQ Solver • Deep Learning & Generative AI Project • IIT Madras BS Degree
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
