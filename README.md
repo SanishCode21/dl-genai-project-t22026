@@ -412,7 +412,7 @@ IIT Madras BS Degree
 - Kaggle Notebook: https://www.kaggle.com/code/sanishkumarsingh/
 - GitHub: https://github.com/SanishCode21
 - Hugging Face: https://huggingface.co/SanishKumarSingh
-- Live Project link: https://huggingface.co/spaces/SanishKumarSingh/smart-mcq-solver-1 
+- Live Project link: https://sanishkumarsingh-smart-mcq-solver-1.hf.space 
 
 ---
 
